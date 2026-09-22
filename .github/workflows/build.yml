@@ -1,49 +1,26 @@
 name: Build Night Rush APK
-
-"on":
+on:
   push:
     branches:
       - main
   workflow_dispatch:
-
-permissions:
-  contents: read
-
 jobs:
   build:
     name: Build Android APK
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
-
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
           cache: gradle
-
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install Android SDK
-        run: |
-          yes | sdkmanager --licenses || true
-          sdkmanager \
-            "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0"
-
-      - name: Check Gradle wrapper
-        run: |
-          test -f ./gradlew
-          chmod +x ./gradlew
-
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
       - name: Build Night Rush debug APK
-        run: ./gradlew assembleDebug --stacktrace
-
+        run: ./gradlew assembleDebug
       - name: Upload Night Rush APK
         uses: actions/upload-artifact@v4
         with:
