@@ -1,0 +1,12 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.kelvinchikoti.nightrush'
+    compileSdk 34
+    defaultConfig {
+        applicationId "com.kelvinchikoti.nightrush"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+}
